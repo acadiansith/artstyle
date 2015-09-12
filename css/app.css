@@ -1,11 +1,12 @@
 .Aligner {
     display: block;
+    top: 70%;
+    left: 90%;
     align-items: center;
     min-height: 30em;
     justify-content: center;
     margin-left:auto;
     margin-right:auto;
-    float: left;
 }
 
 /*.Aligner-item {
@@ -24,20 +25,23 @@
     flex: none;
     max-width: 50%;
 }
-*/
+
 
 #webmenu{
     width:100px;
 }
+*/
+
 
 #donelli {
     height:350px;
     width: 300px;
-    margin-left:300px;
-    margin-right:100px;
+    margin-left:20%;
+    margin-right:10%;
     float: left;
     display:inline-block;
-    
+    left: 30%;
+    top: 40%;
 }
 
 #dropzone1 {
@@ -47,5 +51,39 @@
     float:left;
     margin-left:auto;
     margin-right:auto;
+    right:30%;
+    top:40%;
 }
 
+
+/*
+#donelli {
+    position: absolute;
+    top: 120px;
+    left: 400px;
+    margin: 20px;
+    padding: 10px;
+    align-item: center-left
+   border: 5px solid #ccc;
+    background: #666;
+    width: 150px;
+    voice-family: "\"}\"";
+    voice-family:inherit;
+    width: 120px;
+    
+}
+
+#dropzone1 {
+    position: absolute;
+    top: 120px;
+    right: 400px;
+    margin: 20px;
+    padding: 10px;
+   border: 5px solid #ccc;
+    background: #666;
+   align-item:center-right
+    width: 150px;
+    voice-family: "\"}\"";
+    voice-family:inherit;
+    width: 120px;
+}*/
