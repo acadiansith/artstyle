@@ -1,3 +1,4 @@
+<!doctype HTML>
 <html>
 <head>
 	<title>Art Style</title>
@@ -6,7 +7,20 @@
 <body>
 <script src="js/jquery-2.1.4.min.js"></script>
 
-<div id="content"></div>
+<div id="content">
+<button id="clickme">Getting some images!</button>
+
+<img id="gohere">
+
+</div>
+
+<script>
+$("#clickme").click(function() {
+	$.getJSON("/getimage", function(result) {
+		$("#gohere").attr("src", "data:image/jpg;base64," + result.base64);
+	});
+});
+</script>
 
 </body>
 </html>
