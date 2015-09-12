@@ -32,6 +32,10 @@ def send_css(path):
 def send_js(path):
 	return send_from_directory('js', path)
 
+@app.route('/semantic/<path:path>')
+def send_js(path):
+	return send_from_directory('semantic', path)
+
 @app.route('/testget', methods=['GET'])
 def testget():
 	val = request.args.get('test', '')
