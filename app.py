@@ -4,6 +4,7 @@ from werkzeug import secure_filename
 import os
 import base64
 import json
+import subprocess
 
 NEURAL_ARTISTIC_STYLE_DIR = '/home/daniel/app/neural_artistic_style'
 UPLOAD_FOLDER = '/home/daniel/app/artstyle/uploads'
@@ -36,18 +37,25 @@ def send_js(path):
 def send_semantic(path):
 	return send_from_directory('semantic', path)
 
+@app.route('/images/<path:path>')
+def send_images(path):
+	return send_from_directory('images', path)
+
 @app.route('/testget', methods=['GET'])
 def testget():
 	val = request.args.get('test', '')
 	return val
 
-@app.route('/getimage',methods=['GET'])
-def getimage():
-	with open(os.path.join(NEURAL_ARTISTIC_STYLE_DIR, 'images', 'donelli.jpg'), 'rb') as image_file:
+@app.route('/get_next_image',methods=['GET'])
+def get_next_image
+	if not os.path.isdir('animation'):
+		return '{""}'
+
+def image_base64(path):
+	with open(path, 'rb') as image_file:
 		image64 = base64.b64encode(image_file.read())
 	n = 256
-	data = {'base64': image64.decode('utf-8')}
-	return json.dumps(data) #'{"base64": "%s"}' % image64
+	return image64.decode('utf-8')
 
 @app.route('/putimage', methods=['POST'])
 def putimage():
@@ -61,6 +69,12 @@ def putimage():
 def uploaded_file():
 	val = request.args.get('filename')
 	return val
+
+@app.route('/start_crunching')
+def start_crunching():
+	args = ['python', 'neural_artistic_style_wrapper.py']
+	p = subprocess.Popen(args)
+	return "Started"
 	
 
 if __name__ == '__main__':
