@@ -47,7 +47,7 @@ def testget():
 	return val
 
 @app.route('/get_next_image',methods=['GET'])
-def get_next_image
+def get_next_image():
 	if not os.path.isdir('animation'):
 		return '{""}'
 

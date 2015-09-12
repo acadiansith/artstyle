@@ -3,3 +3,4 @@ uploads
 animation
 out.png
 log.log
+__pycache__
