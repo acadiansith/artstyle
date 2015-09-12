@@ -3,16 +3,49 @@
 <head>
 	<title>Art Style</title>
 	<link href="css/app.css" rel="stylesheet" type="text/css">
+    <link  href="semantic/dist/semantic.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/dropzone.js"></script>
 
-<div id="content">
-<button id="clickme">Getting some images!</button>
+<script src="semantic/dist/semantic.min.js"></script>
 
-<img id="gohere">
+<h2 class="ui center aligned icon header">
+    <i class="thumbs up icon"></i>
+    Try take a photo and see an artistic yourself!
+</h2>
 
+
+<div class="ui floating labeled icon dropdown button">
+    <i class="photo icon"></i>
+    <span class="text">Add Pictures</span>
+    <div class="menu">
+        <div class="header">
+            People You Might Know
+        </div>
+        <div class="item">
+            <img class="ui avatar image" src="/images/donelli.jpg">
+                Jenny Hess
+                </div>
+    </div>
 </div>
+
+
+
+
+<div class="Aligner">
+  
+    <div class="Aligner">
+        <div id="content">
+            <button id="clickme">Getting some images!</button>
+            
+            <img id="gohere">
+                
+        </div>
+    </div>
+</div>
+
 
 <script>
 $("#clickme").click(function() {
