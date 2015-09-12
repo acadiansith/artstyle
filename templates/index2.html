@@ -1,0 +1,31 @@
+<!doctype HTML>
+<html>
+<head>
+	<title>Art Style</title>
+	<link href="css/app.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="js/jquery-2.1.4.min.js"></script>
+
+<div id="content">
+<button id="clickme">Getting some images!</button>
+
+<img id="gohere">
+
+<form action='/putimage' method='POST' enctype="multipart/form-data">
+<input type="file" name="file" accept="image/*">
+<input type="submit" name="submit">
+</form>
+
+</div>
+
+<script>
+$("#clickme").click(function() {
+	$.getJSON("/getimage", function(result) {
+		$("#gohere").attr("src", "data:image/jpg;base64," + result.base64);
+	});
+});
+</script>
+
+</body>
+</html>
