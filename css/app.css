@@ -1,11 +1,14 @@
 .Aligner {
-    display: flex;
+    display: block;
     align-items: center;
-    min-height: 10em;
+    min-height: 30em;
     justify-content: center;
+    margin-left:auto;
+    margin-right:auto;
+    float: left;
 }
 
-.Aligner-item {
+/*.Aligner-item {
     flex: 1;
 }
 
@@ -21,7 +24,7 @@
     flex: none;
     max-width: 50%;
 }
-
+*/
 
 #webmenu{
     width:100px;
