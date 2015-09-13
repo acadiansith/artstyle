@@ -1,12 +1,10 @@
 .Aligner {
     display: block;
-    top: 70%;
-    left: 90%;
     align-items: center;
     min-height: 30em;
+    float:left;
     justify-content: center;
-    margin-left:auto;
-    margin-right:auto;
+    
 }
 
 /*.Aligner-item {
