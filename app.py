@@ -2,9 +2,12 @@ from flask import Flask, render_template, request, send_from_directory, redirect
 	url_for
 from werkzeug import secure_filename
 import os
+import shutil
 import base64
 import json
+import glob
 import subprocess
+import tempfile
 
 NEURAL_ARTISTIC_STYLE_DIR = '/home/daniel/app/neural_artistic_style'
 UPLOAD_FOLDER = '/home/daniel/app/artstyle/uploads'
@@ -48,14 +51,17 @@ def testget():
 
 @app.route('/get_next_image',methods=['GET'])
 def get_next_image():
-	if not os.path.isdir('animation'):
-		return '{""}'
-
-def image_base64(path):
-	with open(path, 'rb') as image_file:
-		image64 = base64.b64encode(image_file.read())
-	n = 256
-	return image64.decode('utf-8')
+	if not os.path.isdir(os.path.join('images', 'animation')):
+		return '{"error": true}'
+	data = {}
+	data['done'] = not os.path.isfile('.crunching.lck')
+	if data['done']:
+		data['src'] = '/images/out.png'
+	else:
+		frames = glob.glob(os.path.join('images', 'animation', '*.png'))
+		frames.sort()
+		data['src'] = frames[-2] if len(frames) > 1 else frames[-1]
+	return json.dumps(data)
 
 @app.route('/putimage', methods=['POST'])
 def putimage():
@@ -74,7 +80,7 @@ def uploaded_file():
 def start_crunching():
 	args = ['python', 'neural_artistic_style_wrapper.py']
 	p = subprocess.Popen(args)
-	return "Started"
+	return '{"started": true}'
 	
 
 if __name__ == '__main__':

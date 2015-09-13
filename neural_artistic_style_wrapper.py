@@ -9,12 +9,14 @@ def run():
 		return False
 	os.mknod('.crunching.lck')
 
-	shutil.rmtree('animation')
+	shutil.rmtree(os.path.join('images', 'animation'))
 	args = ['python', '-u', os.path.join(NEURAL_ARTISTIC_STYLE_DIR, 'neural_artistic_style.py'), \
 		'--style', os.path.join(NEURAL_ARTISTIC_STYLE_DIR, 'images', 'donelli.jpg'), \
 		'--subject', os.path.join(NEURAL_ARTISTIC_STYLE_DIR, 'images', 'weird_al.jpg'), \
 		'--iterations', '200', \
-		'--vgg19', os.path.join(NEURAL_ARTISTIC_STYLE_DIR, 'imagenet-vgg-verydeep-19.mat')]
+		'--vgg19', os.path.join(NEURAL_ARTISTIC_STYLE_DIR, 'imagenet-vgg-verydeep-19.mat'), \
+		'--output', os.path.join('images', 'out.png'), \
+		'--animation', os.path.join('images', 'animation')]
 	
 	with open('log.log', 'w') as log_file:
 		p = subprocess.Popen(args, stdout=log_file)

@@ -10,7 +10,7 @@
 <div id="content">
 <button id="clickme">Getting some images!</button>
 
-<img id="gohere">
+<img id="gohere" style="width: 512px; height: 512px;">
 
 <form action='/putimage' method='POST' enctype="multipart/form-data">
 <input type="file" name="file" accept="image/*">
@@ -21,9 +21,26 @@
 
 <script>
 $("#clickme").click(function() {
-	$.getJSON("/getimage", function(result) {
-		$("#gohere").attr("src", "data:image/jpg;base64," + result.base64);
+	$.getJSON("/start_crunching", function(crunch_result) {
+		
+		if (crunch_result.started === true) {
+			var load_next = function() {
+				$.getJSON("/get_next_image", function(image_result) {
+					if (image_result.error) {
+						return;
+					} else {
+						$("#gohere").attr("src", image_result.src);
+						if (image_result.done === false) {
+							setTimeout(load_next, 1000);
+						}
+					}
+				});
+			};
+			setTimeout(load_next, 1000);
+		}
+
 	});
+
 });
 </script>
 
