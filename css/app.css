@@ -31,7 +31,7 @@
 */
 
 
-#donelli {
+#style-select {
     height:350px;
     width: 300px;
     margin-left:20%;
@@ -40,6 +40,27 @@
     display:inline-block;
     left: 30%;
     top: 40%;
+	border: 1px lightgray solid;
+}
+
+#donelli, #matisse {
+	height: 150px;
+	padding: 0px;
+	margin: 15px;
+}
+
+#starry-night, #composition-vii {
+	width: 110px;
+	padding: 0px;
+	margin: 15px;
+}
+
+#progress {
+	padding: 10px;
+}
+
+.outline {
+	border: 5px solid blue;
 }
 
 #dropzone1 {
@@ -53,6 +74,10 @@
     top:40%;
 }
 
+#dropzonehere {
+	height: 100%;
+	width: 100%;
+}
 
 /*
 #donelli {

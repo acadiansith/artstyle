@@ -76,9 +76,11 @@ def uploaded_file():
 	val = request.args.get('filename')
 	return val
 
-@app.route('/start_crunching')
+@app.route('/start_crunching', methods=['GET'])
 def start_crunching():
-	args = ['python', 'neural_artistic_style_wrapper.py']
+	style = request.args.get('style')
+	subject = request.args.get('subject')
+	args = ['python', 'neural_artistic_style_wrapper.py', style, subject]
 	p = subprocess.Popen(args)
 	return '{"started": true}'
 	

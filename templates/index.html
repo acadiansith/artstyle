@@ -10,44 +10,76 @@
 <script src="js/jquery-2.1.4.min.js"></script>
 <script src="js/dropzone.js"></script>
 <script src="semantic/dist/semantic.min.js"></script>
-<script>
-    $("body select").msDropDown();
-</script>
-
+<script src="js/image-scale.min.js"></script>
 
 
 <h2 class="ui center aligned icon header">
     <i class="thumbs up icon"></i>
-    Try take a photo and see an artistic yourself!
+    Try taking a photo and seeing an artistic version of yourself!
 </h2>
 
 
 
 <div>
-    <img id="donelli" src="/images/donelli.jpg">
-<!---
-<select name="webmenu" id="webmenu">
-    <option value="donelli" src="/images/donelli.jpg"></option>
-</select>
--->
+	<div id="style-select">
+		<img id="donelli" src="images/donelli.jpg" class="outline">
+		<img id="matisse" src="images/matisse.jpg">
+		<img id="starry-night" src="images/starry_night.jpg">
+		<img id="composition-vii" src="images/compositionvii.jpg">
+	</div>
 
-
-<form id="dropzone1" action="/file-upload"
-    class="dropzone"
-    id="my-awesome-dropzone"></form>
-
+<div id="dropzone1">
+	<form id="dropzonehere" action="/putimage" class="dropzone"></form>
+	<img id="showhere" style="display: none; width: 100%; height: 100%">
 </div>
-        <br>
-<div class="Aligner">
-            <button id="clickme">Getting some images!</button>
+<span id="progress"></span>
+
 </div>
 
 
 <script>
-$("#clickme").click(function() {
-	$.getJSON("/getimage", function(result) {
-		$("#gohere").attr("src", "data:image/jpg;base64," + result.base64);
+var dostyle = function(subject) {
+	$("#dropzonehere").hide();
+	$("#showhere").show();
+	var style = $("#style-select img.outline").first().attr("src");
+	$.getJSON("/start_crunching?style="+style+"&subject=uploads/"+subject, function(crunch_result) {
+		
+		if (crunch_result.started === true) {
+			var load_next = function() {
+				$.getJSON("/get_next_image", function(image_result) {
+					if (image_result.error) {
+						return;
+					} else {
+						$("#showhere").attr("src", image_result.src);
+						if (image_result.done === false) {
+							var digits = /\d\d\d\d/;
+							var num = +(digits.exec(image_result.src)[0]);
+							$("#progress").text(Math.floor(num/2) + "%")
+							setTimeout(load_next, 1000);
+						} else {
+							$("#progress").text("100%");
+						}
+					}
+				});
+			};
+			setTimeout(load_next, 1000);
+		}
+
 	});
+
+};
+
+$("#style-select img").click(function(e) {
+	var img = $(e.target);
+	$("#style-select img").removeClass("outline");
+	img.addClass("outline");
+	console.log(img.attr("src"));
+});
+
+Dropzone.autoDiscover = false;
+var mydropzone = new Dropzone("#dropzonehere");
+mydropzone.on("success", function(file) {
+	dostyle(file.name);
 });
 </script>
 
